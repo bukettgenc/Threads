@@ -13,12 +13,20 @@ public class Main {
 //		System.out.println("Aktif thread sayısı:" + Thread.activeCount());
 //		System.out.println("Program bitti");
 //		System.out.println("Mevcut thread bilgisi:" + Thread.currentThread().getName());
-		
-		Runnable gorev1=new Gorev1();
-		Thread gorev=new Thread(gorev1);
+		Thread.currentThread().setName("-Main thread-");
+		Runnable gorev1 = new Gorev1();
+		Thread gorev = new Thread(gorev1, "-Gorev Sinifi Thread-");
 		gorev.start();
-		
-		//3 bitti
+
+		Runnable gorev2 = new DigerGorev();
+		Thread digerGorev = new Thread(gorev2, "-Diger Gorev Thread-");
+		//default priority 5'tir.
+		digerGorev.setPriority(10);
+		digerGorev.start();
+
+		new Thread(new DigerGorev(), "-Diger Gorev Thread 2-").start();
+		System.out.println(digerGorev.isAlive());
+//parcaciklarinin-bazi-metotlari-ve-kararsizligi-4 bitti
 	}
 
 }
